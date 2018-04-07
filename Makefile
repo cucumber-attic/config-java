@@ -3,10 +3,13 @@
 #
 #     source scripts/functions.sh && rsync_files
 #
-sudo: false
-language: java
-jdk:
-  - oraclejdk8
-  - oraclejdk9
+default: .built
+.PHONY: default
 
-script: make default
+.built: pom.xml
+	mvn install
+	touch $@
+
+clean:
+	rm -rf target
+.PHONY: clean
